@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+from calculator import Calculator, Item
 
 #count = 0
 # аннотации типов
 # класс с типами данных параметров 
-class Item(BaseModel):
-    name: str
-    description: str
-    price: float
+
+clc = Calculator()
 
 # создаем объект приложения
 app = FastAPI()
@@ -31,12 +30,18 @@ def users(id):
     return {"user_id": id}
 
 # функция-обработчик post запроса с параметрами
-@app.post("/users")
-def get_model(item:Item):
-    return {"user_name": item.name, "description": item.description, "price": item.price}
+@app.post("/add")
+def get_model(item: Item):
+    return {"x": item.x, "y": item.y, "result": clc.add(item)}
 
-@app.get("/my_page", response_class=HTMLResponse)
-def read_file():
-    with open("my_page.html", 'r', encoding='utf-8') as f:
-        html_content = f.read()
-    return html_content
+@app.post("/sub")
+def get_model(item: Item):
+    return {"x": item.x, "y": item.y, "result": clc.sub(item)}
+
+@app.post("/mul")
+def get_model(item: Item):
+    return {"x": item.x, "y": item.y, "result": clc.mul(item)}
+
+@app.post("/div")
+def get_model(item: Item):
+    return {"x": item.x, "y": item.y, "result": clc.div(item)}
