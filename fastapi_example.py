@@ -3,9 +3,7 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from calculator import Calculator, Item
 
-#count = 0
-# аннотации типов
-# класс с типами данных параметров 
+# класс с типами данных параметров
 
 clc = Calculator()
 
@@ -19,29 +17,22 @@ def root():
     #count += 1
     return {"message": "Hello FastAPI"}
 
-# функция, которая обрабатывает запрос по пути "/about"
-@app.get("/about")
-def about():
-    return {"message": "Страница с описанием проекта"}
-
-# функция-обработчик с параметрами пути
-@app.get("/users/{id}")
-def users(id):
-    return {"user_id": id}
-
-# функция-обработчик post запроса с параметрами
+# функция-обработчик post запроса сложение
 @app.post("/add")
 def get_model(item: Item):
     return {"x": item.x, "y": item.y, "result": clc.add(item)}
 
+# функция-обработчик post запроса вычитание
 @app.post("/sub")
 def get_model(item: Item):
     return {"x": item.x, "y": item.y, "result": clc.sub(item)}
 
+# функция-обработчик post запроса умножение
 @app.post("/mul")
 def get_model(item: Item):
     return {"x": item.x, "y": item.y, "result": clc.mul(item)}
 
+# функция-обработчик post запроса деление
 @app.post("/div")
 def get_model(item: Item):
     return {"x": item.x, "y": item.y, "result": clc.div(item)}
